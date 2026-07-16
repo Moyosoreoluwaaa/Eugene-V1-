@@ -14,7 +14,7 @@ prediction-market-style platform in Kotlin Multiplatform (Android + iOS).
 | **Phase 2** | Room Database Integration | **COMPLETE** | [Phase 02 Room](status/phase_02_room.md) |
 | **Phase 3** | Network & API Layer | **COMPLETE** | [Phase 03 Network](status/phase_03_network.md) |
 | **Phase 4** | Repository Implementations | **COMPLETE** | [Phase 04 Repositories](status/phase_04_repositories.md) |
-| **Phase 5** | Dependency Injection (Koin) | *PENDING* | — |
+| **Phase 5** | Dependency Injection (Koin) | **COMPLETE** | [Phase 05 DI](status/phase_05_di.md) |
 | **Phase 6** | Shared UI Components | *PENDING* | — |
 | **Phase 7** | Screen Implementations | *PENDING* | — |
 | **Phase 8** | Core Platform Behaviors | *PENDING* | — |
@@ -24,4 +24,4 @@ prediction-market-style platform in Kotlin Multiplatform (Android + iOS).
 
 ## Active Phase
 
-- **Phase 4: Repository Implementations** (Completed and verified)
+- **Phase 6: Shared UI Components** (Pending initialization)

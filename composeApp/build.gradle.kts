@@ -1,14 +1,13 @@
 import com.google.gms.googleservices.GoogleServicesPlugin.MissingGoogleServicesStrategy
 
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.google.devtools.ksp)
     alias(libs.plugins.roborazzi)
     alias(libs.plugins.secrets)
-    alias(libs.plugins.google.services)
 }
 
 android {
@@ -16,44 +15,14 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.aistudio.eugene.fkmqzs"
         minSdk = 24
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    signingConfigs {
-        create("release") {
-            val keystorePath = System.getenv("KEYSTORE_PATH") ?: "${rootDir}/my-upload-key.jks"
-            storeFile = file(keystorePath)
-            storePassword = System.getenv("STORE_PASSWORD")
-            keyAlias = "upload"
-            keyPassword = System.getenv("KEY_PASSWORD")
-        }
-        create("debugConfig") {
-            storeFile = file("${rootDir}/debug.keystore")
-            storePassword = "android"
-            keyAlias = "androiddebugkey"
-            keyPassword = "android"
-        }
     }
 
     buildTypes {
         release {
-            isCrunchPngs = false
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
-            val keystorePath = System.getenv("KEYSTORE_PATH") ?: "${rootDir}/my-upload-key.jks"
-            if (file(keystorePath).exists()) {
-                signingConfig = signingConfigs.getByName("release")
-            } else {
-                signingConfig = signingConfigs.getByName("debugConfig")
-            }
-        }
-        debug {
-            signingConfig = signingConfigs.getByName("debugConfig")
         }
     }
 
@@ -77,14 +46,15 @@ secrets {
     defaultPropertiesFileName = ".env.example"
 }
 
-googleServices {
-    missingGoogleServicesStrategy = MissingGoogleServicesStrategy.WARN
-}
-
 dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
     implementation(project(":di"))
+
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
+    implementation(libs.koin.compose.viewmodel)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
@@ -97,6 +67,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.core.ktx)
+    implementation(libs.coil.compose)
+    implementation(libs.kotlinx.datetime)
 
     // Tests (optional for Phase 0 but good to define)
     testImplementation(libs.androidx.compose.ui.test.junit4)
